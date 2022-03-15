@@ -1,0 +1,77 @@
+<!-- <div *ngIf="this.Loader.isLoading | async; then DisplayLoader else DisplayTopic"></div>-->
+<ng-template #DisplayLoader>
+    <div class="d-flex justify-content-center">
+        <mat-spinner color="accent"></mat-spinner>
+    </div>
+</ng-template>
+<!--<ng-template #DisplayTopic> -->
+    <mat-card style="height: 100%;">
+        <div class="container-fluid topic-body">
+            <div *ngIf="this.Loader.isLoading | async; then DisplayLoader else DisplaySubject"></div>
+            <ng-template #DisplaySubject>
+                <p class="text-center topic-subject mt-5 user-select-none">{{topic_subject}}</p>
+            </ng-template>
+            <button mat-button color="warn" (click)="DeleteTopic(topic_id, topic_category)"><i class='bx bx-trash bx-md'></i></button>
+            <hr class="rgb-divider mt-5">
+            <div class="row topic mt-5">
+                <div class="col-sm-2">
+                    <img 
+                        loading="lazy" 
+                        class="rounded-8 text-center user-select-none" 
+                        width="156"
+                        height="156"
+                        src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/04/049dcd97a490fb0e3edf553e83265a55f05ad767_full.jpg"
+                    />
+                    <div *ngIf="this.Loader.isLoading | async; then DisplayLoader else DisplayUsername"></div>
+                    <ng-template #DisplayUsername>
+                        <h1 class="text-center user-select-none">{{topic_user}}</h1>
+                    </ng-template>
+                    <div *ngIf="this.Loader.isLoading | async; then DisplayLoader else DisplayDate"></div>
+                    <ng-template #DisplayDate>
+                        <div class="text-warning text-center">
+                            <p>{{topic_date}}</p>
+                        </div>
+                    </ng-template>
+                </div>
+                <div class="col-sm-10 rounded-8 border border-primary border-5" style="background-color: rgba(19, 19, 19, 0.5);">
+                    <div class="container user-select-none">
+                        <div class="topic-content mt-3">
+                            <p>{{topic_content}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row topic mt-5" *ngFor="let post of Obs | async">
+                <div class="col-sm-2">
+                    <img  loading="lazy"  class="rounded-8 text-center user-select-none" width="156" height="156"
+                        src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/04/049dcd97a490fb0e3edf553e83265a55f05ad767_full.jpg"
+                    />
+                    <h1 class="text-center user-select-none">{{post.by}}</h1>
+                    <div class="text-warning text-center">
+                        <p>{{post.date}}</p>
+                    </div>
+                </div>
+                <div class="col-sm-10 bg-dark rounded-8">
+                    <div class="container user-select-none">
+                        <div class="topic-content mt-3">
+                            <p>{{post.content}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <mat-paginator class="bg-dark text-primary" color="accent" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            <div class="row topic text-center">
+                 <div class="container-fluid">
+                    <form [formGroup]="form" (ngSubmit)="InsertPost()">
+                        <mat-form-field class="topic-answer" appearance="fill" color="accent">
+                            <mat-label>Poster une réponse</mat-label>
+                            <textarea matInput #length minlength="10" maxlength="2048" formControlName="content" required></textarea>
+                            <mat-hint align="end">Minimum 10 - {{length.value?.length || 0}}/2048</mat-hint>
+                        </mat-form-field>
+                        <button mat-raised-button type="submit" color="accent" [disabled]="form.invalid">Valider</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </mat-card>
+<!-- </ng-template> -->

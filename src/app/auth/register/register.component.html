@@ -1,0 +1,94 @@
+<section class="vh-100">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-white" [ngStyle]="{'border-radius': '25px', 'background': 'rgb(139, 139, 139)'}">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <div class="card bg-dark" [ngStyle]="{'height': '100%', 'border-top-left-radius': '25px', 'border-top-right-radius': '0px', 'border-bottom-left-radius': '25px', 'border-bottom-right-radius': '0px'}">
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Inscription</p>
+                  <form class="mx-1 mx-md-4" [formGroup]="RegisterForm" (ngSubmit)="register()">
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-form-field [ngStyle]="{'width': '300px'}" appearance="fill">
+                        <mat-label [ngStyle]="{'color': '#72a4f7'}">Pseudo</mat-label>
+                        <input matInput type="text" formControlName="username" required/>
+                        <mat-error *ngIf="!RegisterForm.value.username;">
+                          Ce champ est obligatoire.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-form-field [ngStyle]="{'width': '300px'}" appearance="fill">
+                        <mat-label [ngStyle]="{'color': '#72a4f7'}">Email</mat-label>
+                        <input type="email" matInput formControlName="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" required/>
+                        <mat-error *ngIf="!RegisterForm.value.email.errors?.pattern;">
+                          S'il vous plaît, entrez une adresse email valide !
+                        </mat-error>
+                        <mat-error *ngIf="!RegisterForm.value.email;">
+                          Ce champ est obligatoire.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-form-field [ngStyle]="{'width': '300px'}" appearance="fill">
+                        <mat-label [ngStyle]="{'color': '#72a4f7'}">SteamID(64)</mat-label>
+                        <input type="text" matInput formControlName="steamid" pattern="^[0-9]{17}$" required/>
+                        <mat-icon matSuffix><a href="https://steamid.xyz" target="_blank">build</a></mat-icon>
+                        <mat-error *ngIf="!RegisterForm.value.steamid.errors?.pattern;">
+                          Ce champ doit contenir que des chiffres
+                        </mat-error>
+                        <mat-error *ngIf="!RegisterForm.value.steamid;">
+                          Ce champ est obligatoire.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-form-field [ngStyle]="{'width': '300px'}" appearance="fill">
+                        <mat-label [ngStyle]="{'color': '#72a4f7'}">Mot de passe</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required/>
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <mat-error *ngIf="!RegisterForm.value.password;">
+                          Ce champ est obligatoire.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-form-field [ngStyle]="{'width': '300px'}" appearance="fill">
+                        <mat-label [ngStyle]="{'color': '#72a4f7'}">Confirmation mot de passe</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="passwordconfirm" required/>
+                        <mat-error *ngIf="RegisterForm.value.passwordconfirm !== RegisterForm.value.password">
+                          Les mot de passe ne correspondent pas !
+                        </mat-error>
+                        <mat-error *ngIf="!RegisterForm.value.passwordconfirm;">
+                          Ce champ est obligatoire.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+
+                    <div class="form-check d-flex justify-content-center mb-5">
+                      <mat-checkbox class="form-check-label" [checked]="CheckBox" [color]="'accent'" (change)="CheckBox = !CheckBox" >
+                        J'accepte toutes les déclarations des <a routerLink="/conditions" required>Conditions d'utilisation </a>
+                      </mat-checkbox>
+                    </div>
+  
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <button type="submit" mat-button class="btn btn-success btn-lg text-white" [disabled]="!RegisterForm.valid || RegisterForm.value.passwordconfirm != RegisterForm.value.password || !CheckBox">Confirmer</button>
+                    </div>
+  
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img src="../assets/images/csgo_charac.png" class="img-fluid rounded" alt="Sample image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  

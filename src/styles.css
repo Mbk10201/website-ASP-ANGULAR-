@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Google Auto Fill form remove bg color & text color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: rgb(255, 255, 255) !important;
+}
+
+/* If the page route is active set this class bellow */
+.active-link {
+    background-color: #32323287;
+}
+
+/* TsParticle fixed */
+#particles-js {
+    position : fixed;
+    width:100%;
+    height:100%;
+    z-index:-1;
+    background-image: url("assets/images/bg-image.jpg");
+    background-size: cover;
+}
+
+@keyframes moveGradient {
+    50% {
+      background-position: 100% 50%;
+    }
+}
+
+.rgb-divider {
+    background-image: url('assets/images/divider.gif');
+    height: 2px;
+}

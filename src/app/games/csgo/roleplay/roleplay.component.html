@@ -1,0 +1,49 @@
+<mat-toolbar>
+	<button mat-icon-button (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+	<h1>Serveur Roleplay</h1>
+	<span class="example-spacer"></span>
+</mat-toolbar>
+<mat-drawer-container class="example-container" autosize>
+	<mat-drawer #drawer opened="true" class="example-sidenav bg-dark text-white" mode="side">
+		<div *ngIf="authService.loggedIn(); then DisplayTabs"></div>
+		<ng-template #DisplayTabs>
+			<div *ngIf="authService.GetUserData('role') === '1'; then DisplayAdminTab"></div>
+			<ng-template #DisplayAdminTab>
+				<mat-list>
+					<mat-list-item matRipple [matRippleColor]="'lightgreen'" [routerLink]="['admin']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+						<span class="text-white"><i class='bx bx-cog bx-tada-hover' style='color:#73c506'></i> Administration</span>
+					</mat-list-item>
+				</mat-list>
+				<mat-divider></mat-divider>
+			</ng-template>
+			<mat-list>
+				<mat-list-item matRipple [matRippleColor]="'lightgreen'" [routerLink]="['profil']" [queryParams]="{ id: authService.GetUserData('steamid')}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+					<span class="text-white"><i class='bx bxs-user bx-tada-hover' style='color:#73c506'></i> Mon profile</span>
+				</mat-list-item>
+			</mat-list>
+			<mat-divider></mat-divider>
+		</ng-template>
+		<mat-list>
+			<mat-list-item matRipple [matRippleColor]="'lightgreen'" routerLink="/csgo/roleplay" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+				<span class="text-white"><i class='bx bx-home bx-tada-hover' style='color:#73c506'></i> Accueil</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item matRipple [matRippleColor]="'lightgreen'" [routerLink]="['users']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+				<span class="text-white"><i class='bx bx-group bx-tada-hover' style='color:#73c506'></i> Utilisateurs</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item matRipple [matRippleColor]="'lightgreen'" [routerLink]="['rules']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+				<span class="text-white"><i class='bx bx-message-square bx-tada-hover' style='color:#73c506'></i> Règlements</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item matRipple [matRippleColor]="'lightgreen'" [routerLink]="['items']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+				<span class="text-white"><i class='bx bx-book-content bx-tada-hover' style='color:#73c506'></i> Items</span>
+			</mat-list-item>
+			<mat-divider></mat-divider>
+			<mat-list-item matRipple [matRippleColor]="'lightgreen'" [routerLink]="['objects']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+				<span class="text-white"><i class='bx bx-fork bx-tada-hover' style='color:#73c506'></i> Objets</span>
+			</mat-list-item>
+		</mat-list>
+	</mat-drawer>
+	<router-outlet></router-outlet>
+</mat-drawer-container>

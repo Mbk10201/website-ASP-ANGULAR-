@@ -1,0 +1,89 @@
+<!-- Navbar -->
+<mat-toolbar>
+  <img class="user-select-none" src="{{logo}}" loading="lazy"/>
+  <div class="title-center">
+    <button mat-button routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}" color="warn"><mat-icon>home</mat-icon>Accueil</button>
+    
+    <!--NAVIGATION-->
+    <button mat-button [matMenuTriggerFor]="navigation" color="warn"><mat-icon>menu</mat-icon>Navigation</button>
+    <mat-menu #navigation="matMenu">
+      <button mat-menu-item routerLink="/server" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><mat-icon>data_usage</mat-icon>Serveurs</button>
+      <button mat-menu-item routerLink="/plugins" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><mat-icon>developer_board</mat-icon>Plugins</button>
+      <button mat-menu-item routerLink="/shop" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><mat-icon>shopping_basket</mat-icon>Boutique</button>
+      <button mat-menu-item [matMenuTriggerFor]="others"><mat-icon>message</mat-icon>Autres</button>
+    </mat-menu>
+
+    <mat-menu #others="matMenu">
+      <a href="https://bans.enemy-down.fr/" target="_blank"><button mat-menu-item>Sourcebans</button></a>
+      <a href="https://forum.enemy-down.fr/" target="_blank"><button mat-menu-item>Forum</button></a>
+    </mat-menu>
+
+    <mat-menu #ForumSub="matMenu">
+      <button mat-menu-item>Roleplay</button>
+      <button mat-menu-item>Jailbreak</button>
+      <button mat-menu-item>Awp</button>
+    </mat-menu>
+    <!--NAVIGATION-->
+
+    <!--GAMES-->
+    <button mat-button [matMenuTriggerFor]="Jeux" color="warn"><mat-icon>games</mat-icon>Jeux</button>
+    <mat-menu #Jeux="matMenu">
+      <button mat-menu-item routerLink="/csgo" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <img width="32" height="32" class="rounded-8" src="../../assets/images/games/csgo.png" loading="lazy"/> CS:GO
+      </button>
+      <button mat-menu-item routerLink="/css" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <img width="32" height="32" class="rounded-8" src="../../assets/images/games/css.png" loading="lazy"/> CS:S
+      </button>
+      <button mat-menu-item routerLink="/sbox" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <img width="32" height="32" class="rounded-8" src="../../assets/images/games/sbox.png" loading="lazy"/> S&BOX
+      </button>
+      <button mat-menu-item routerLink="/gmod" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <img width="32" height="32" class="rounded-8" src="../../assets/images/games/gmod.png" loading="lazy"/> GMOD
+      </button>
+      <button mat-menu-item routerLink="/underground" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <img width="32" height="32" class="rounded-8" src="../../assets/images/games/gta-under.png" loading="lazy"/> Underground
+      </button>
+      <button mat-menu-item routerLink="/fivem" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        <img width="32" height="32" class="rounded-8" src="../../assets/images/games/gta-fivem.png" loading="lazy"/> FiveM
+      </button>
+    </mat-menu>
+    <!--GAMES-->
+
+    <!--FORUM-->
+    <button mat-button color="warn" routerLink="/forum" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}"><mat-icon>forum</mat-icon>Forum</button>
+    <!--FORUM-->
+  </div>
+  <span class="example-spacer"></span>
+  <div *ngIf="!authService.loggedIn(); then thenBlock else elseBlock"></div>
+  <ng-template #thenBlock>
+      <button type="button" class="btn btn-light me-3" routerLink="/login" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        Connexion <i class="las la-sign-in-alt"></i>
+      </button>
+      <button type="button" class="btn btn-success me-3" routerLink="/register" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+        Inscription <i class="las la-plus"></i>
+      </button>
+  </ng-template>
+  <ng-template #elseBlock>
+    <button mat-button (click)="OpenShoppingCart()"><mat-icon matBadge="{{this.cart.producttotal}}" [matBadgeColor]="this.cart.producttotal == 0 ? 'warn':'accent'">shopping_basket</mat-icon></button>
+    <button mat-button [matMenuTriggerFor]="menu"><img class="rounded-8" src="{{this.authService.GetUserData('avatar')}}" loading="lazy"/> {{this.authService.GetUserData('username')}}</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="GoProfile()" routerLinkActive="active-link">Mon Profil</button>
+      <div *ngIf="this.authService.GetUserData('role') === '1'; then DisplayAdminTab"></div>
+      <ng-template #DisplayAdminTab>
+        <button mat-menu-item routerLink="/admin" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Administration</button>
+      </ng-template>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="authService.logOut()">Déconnexion</button>
+    </mat-menu>
+  </ng-template>
+  <mat-slide-toggle (click)="toggleDarkMode()" [(ngModel)]="isDarkMode"></mat-slide-toggle>
+</mat-toolbar>
+
+<div *ngIf="this.authService.loggedIn() && this.authService.GetUserData('mail_confirmed') === '0'; then DisplayConfirmation"></div>
+<ng-template #DisplayConfirmation>
+  <div class="container-fluid bg-danger text-center fs-1 rounded-8" style="height:140px">
+    <h3><box-icon type='solid' name='hand'></box-icon>Bonjour <span class="text-primary">{{this.authService.GetUserData('username')}}</span>,</h3>
+    <h3 class="mt-1">Veuillez confirmer votre addresse mail afin de profiter pleinement du fonctionnement du site 😁</h3>
+    <button mat-raised-button color="accent" (click)="this.authService.CheckIfConfirmed(this.authService.GetUserData('id'))">Vérifier</button>
+  </div>
+</ng-template>

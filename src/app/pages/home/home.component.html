@@ -1,0 +1,260 @@
+<mat-carousel
+    timings="250ms ease-in"
+    [autoplay]="true"
+    [interval]="5000"
+    color="warn"
+    maxWidth="auto"
+    [proportion]="25"
+    [slides]="5"
+    [loop]="true"
+    [hideArrows]="false"
+    [hideIndicators]="true"
+    [useKeyboard]="false"
+    [useMouseWheel]="false"
+    orientation="ltr"
+  >
+  <mat-carousel-slide #matCarouselSlide class="user-select-none" *ngFor="let slide of slides; let i = index" [image]="slide.image" overlayColor="#00000040" [hideOverlay]="false" loading="lazy">
+    <div class="mt-5">
+      <img class="d-block mx-auto mb-4 mt-2 user-select-none" src="{{ logo }}" width="125" height="125" loading="lazy">
+      <div class="col-lg-6 mx-auto">
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <ng-lottie width="512px" height="64px" [options]="enemydownJson"></ng-lottie>
+        </div>
+        <span class="lead">{{slogan}}</span>
+      </div>
+    </div>
+  </mat-carousel-slide>
+</mat-carousel>
+<div class="bg-dark user-select-none">
+  <div class="container">
+
+    <!-- NEWS & PATCHNOTES -->
+    <div class="row">
+      <div class="col-sm-11 mt-3">
+        <div class="card d-flex justify-content-center" style="background: rgba(0, 0, 0, 1);">
+          <img src="{{bannerurl}}" class="img-fluid rounded-top" loading="lazy">
+          <mat-tab-group color="accent" backgroundColor="warn" class="text-primary">
+            <mat-tab label="Nouvelles">
+              <div *ngFor="let item of newsObs | async">
+                <mat-expansion-panel hideToggle class="bg-dark border">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="text-white">
+                      {{ item.title }}
+                    </mat-panel-title>
+                    <mat-panel-description class="text-primary">
+                      {{ item.date }}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <hr style="background-image: url('https://i.gifer.com/origin/8c/8cb60bc2f43a6f283e8437a30b19b50b.gif');">
+                  <p class="text-primary">{{ item.content }}</p>
+                </mat-expansion-panel>
+              </div>
+              <mat-paginator #newsPaginator class="bg-dark text-primary" color="accent" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+              
+              <div *ngIf="this.news.length == 0; then NoNewsAvailable"></div>
+              <ng-template #NoNewsAvailable>
+                <div class="alert alert-dark d-flex justify-content-sm-center">
+                  Aucune nouvelle disponible !
+                </div>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="Patchnotes"> 
+              <div *ngFor="let item of patchObs | async">
+                <mat-expansion-panel hideToggle class="bg-dark border">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title class="text-white">
+                      {{ item.title }}
+                    </mat-panel-title>
+                    <mat-panel-description class="text-primary">
+                      {{ item.date }}
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <hr style="background-image: url('https://i.gifer.com/origin/8c/8cb60bc2f43a6f283e8437a30b19b50b.gif');">
+                  <p class="text-primary">{{ item.content }}</p>
+                </mat-expansion-panel>
+              </div>
+              <mat-paginator #patchPaginator class="bg-dark text-primary" color="accent" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+
+              <div *ngIf="this.patchnotes.length == 0; then NoPatchAvailable"></div>
+              <ng-template #NoPatchAvailable>
+                <div class="alert alert-dark d-flex justify-content-sm-center">
+                    Aucun patchnote disponible !
+                </div>
+              </ng-template>
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+      </div>
+      <div class="col-sm-1 mt-3">
+        <mat-card [ngStyle]="{'width': '350px'}" class="gradient-border">
+          <mat-card-title class="text-center fs-2"><mat-icon>flight_land</mat-icon>Dernière inscription</mat-card-title>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div *ngIf="this.latestuser.length != 0; then ShowUser else ShowError"></div>
+            <ng-template #ShowUser>
+              <h1 class="fs-4 mt-5">{{this.latestuser[0].username}}</h1>
+              {{this.latestuser[0].joindate}}
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="GoProfile(this.latestuser[0].steamid)">Voir son profil</button>
+                <button mat-menu-item>Envoyer un message</button>
+              </mat-menu>
+            </ng-template>
+            <ng-template #ShowError>Aucun joueur</ng-template>
+          </mat-card-content>
+        </mat-card>
+        <mat-card [ngStyle]="{'width': '350px'}" class="gradient-border mt-2">
+          <mat-card-title class="text-center fs-2"><mat-icon>flight_land</mat-icon>Dernier bannissement</mat-card-title>
+          <mat-divider></mat-divider>
+          <mat-card-content>
+            <div *ngIf="this.latestban.length != 0; then ShowBan else ShowNoBan"></div>
+            <ng-template #ShowBan>
+              <h1 class="fs-4 mt-5">{{this.latestban[0].raison}}</h1>
+              {{this.latestban[0].admin}}
+              {{this.latestban[0].user}}
+              {{this.latestbanDate}}
+            </ng-template>
+            <ng-template #ShowNoBan>Aucun bannissement enregistré</ng-template>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+    <mat-divider class="mt-3 mb-3"></mat-divider>
+
+    <!-- SUPPORT INFO -->
+    <div class="row text-center">
+      <div class="col-lg-4 mt-3">
+        <i class="lab la-steam la-7x"></i>
+        <h2>Groupe Steam</h2>
+        <p>En rejoignant notre groupe steam, vous bénéficierez du role Membre Validé, sur discord et sur notre site.</p>
+        <p><a class="btn btn-danger" href="{{steam}}" target="_blank">Rejoindre</a></p>
+      </div>
+      <div class="col-lg-4 mt-3">
+        <i class="las la-ban la-7x"></i>
+        <h2>SourceBans</h2>
+        <p>Consulter, Protester un bannissement ? Rendez-vous sur notre sourcebans pour en savoir d'avantage.</p>
+        <p><a class="btn btn-danger" href="https://bans.enemy-down.fr/" target="_blank">Consulter</a></p>
+      </div>
+      <div class="col-lg-4 mt-3">
+        <i class="las la-headset la-7x"></i>
+        <h2>Support</h2>
+        <p>Envoyez nous votre demande de support via notre compte officiel discord: <span class="text-primary">Enemy-Down#3957</span></p>
+        <p><a class="btn btn-danger" href="https://discord.com/users/780864942542028870" target="_blank">Contacter</a></p>
+      </div>
+    </div>
+
+    <mat-divider class="mt-3 mb-3"></mat-divider>
+    
+    <!-- GAMES -->
+    <div class="d-flex justify-content-center">
+      <mat-icon>games</mat-icon>
+    </div>
+    <div class="d-flex justify-content-center">
+      <h1 class="display-4 fw-bold text-white">JEUX</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-md-3 g-5">
+      <div class="col">
+        <mat-card matRipple class="game-card">
+          <a routerLink="/csgo">
+            <img mat-card-image matRipple src="../../../assets/images/games/csgo.png" class="rounded-top border border-3" loading="lazy">
+          </a>
+          <div class="text-center">
+            CS:GO
+          </div>
+        </mat-card>
+      </div>
+      <div class="col">
+        <mat-card matRipple class="game-card">
+          <a routerLink="/sbox">
+            <img mat-card-image matRipple src="../../../assets/images/games/sbox.png" class="rounded-top border border-3" loading="lazy">
+          </a>
+          <div class="text-center">
+            S&BOX
+          </div>
+        </mat-card>
+      </div>
+      <div class="col">
+        <mat-card matRipple class="game-card">
+          <a routerLink="/gmod">
+            <img mat-card-image matRipple src="../../../assets/images/games/gmod.png" class="rounded-top border border-3" loading="lazy">
+          </a>
+          <div class="text-center">
+            GMOD
+          </div>
+        </mat-card>
+      </div>
+      <div class="col">
+        <mat-card matRipple class="game-card">
+          <a routerLink="/underground">
+            <img mat-card-image matRipple src="../../../assets/images/games/gta-under.png" class="rounded-top border border-3" loading="lazy">
+          </a>
+          <div class="text-center">
+            GTA: Underground
+          </div>
+        </mat-card>
+      </div>
+      <div class="col">
+        <mat-card matRipple class="game-card">
+          <a routerLink="/fivem">
+            <img mat-card-image matRipple src="../../../assets/images/games/gta-fivem.png" class="rounded-top border border-3" loading="lazy">
+          </a>
+          <div class="text-center">
+            FiveM
+          </div>
+        </mat-card>
+      </div>
+      <div class="col">
+        <mat-card matRipple class="game-card">
+          <a routerLink="/css">
+            <img mat-card-image matRipple src="../../../assets/images/games/css.png" class="rounded-top border border-3" loading="lazy">
+          </a>
+          <div class="text-center">
+            CS:S
+          </div>
+        </mat-card>
+      </div>
+    </div>
+
+    <mat-divider class="mt-3 mb-3"></mat-divider>
+
+    <!--Suggestions & Ideas -->
+    <div class="row user-select-none">
+      <div class="col-sm-6">
+        <img class="img-fluid border border-3 mb-3" src="../../../assets/images/idea-suggestion.jpg">
+      </div>
+      <div class="col-sm-offset-0 col-sm-6">
+        <h1 class="text-center fw-bold text-uppercase">Une idée / suggestion ?</h1>
+        <mat-divider></mat-divider>
+        <h3>Vous avez des suggestions tel que prendre en compte de nouveaux jeux sur notre communauté ?</h3>
+        <p>N'oubliez surtout pas, ce qui nous unis et fait notre force, c'est de développer de nouveaux contenu sur la plus part des jeux !</p>
+        <mat-divider></mat-divider>
+        <button class="mt-1" mat-stroked-button color="accent"><mat-icon>assignment</mat-icon> Soumettre une suggestion</button>
+        <button mat-stroked-button color="primary"><mat-icon>announcement</mat-icon> Poser une question ?</button>
+      </div>
+    </div>
+
+    <mat-divider class="mt-3 mb-3"></mat-divider>
+
+    <!--Suggestions & Ideas -->
+    <div class="row">
+      <div class="col-sm-6">
+        <h1 class="text-center fw-bold text-uppercase">Qui sommes nous ?</h1>
+        <mat-divider></mat-divider>
+        <h3 class="mt-1">Fondée par 
+          <a href="https://steamcommunity.com/id/Toubielu/" target="_blank">TouBie</a>, 
+          <a href="https://steamcommunity.com/id/xsuprax/" target="_blank">MbK</a> &
+          <a href="https://steamcommunity.com/profiles/76561198055042341/" target="_blank">$KamikaZe$</a>
+        </h3>
+        <p>Notre but était de proposer et innover de nouveaux concepts sur plusieures jeux.</p>
+      </div>
+      <div class="col-sm-offset-0 col-sm-6">
+        <img class="img-fluid border border-3  mb-3" src="../../../assets/images/about.png">
+      </div>
+    </div>
+
+  </div>
+</div>
+<div class="img-fluid" style="height: 8px;background-image: url('../../../assets/images/spacer.png');"></div>

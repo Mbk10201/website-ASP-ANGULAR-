@@ -1,0 +1,97 @@
+<h1 mat-dialog-title class="text-center">Modifier <span class="badge bg-primary">{{data.name}}</span> ?</h1>
+<p>Veuillez confirmer ci-dessous afin de procéder à la modification de l'utilisateur.</p>
+<mat-divider></mat-divider>
+
+<div mat-dialog-content>
+    <div class="row mt-2">
+        <div class="col-sm-4">
+            <div class="d-flex justify-content-center text-danger fs-2">
+                <span class="badge bg-primary">{{confirmtext}}</span>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="d-flex justify-content-center">
+                <form [formGroup]="form">
+                    <mat-form-field appearance="fill" color="accent">
+                        <mat-label>Confirmer le code</mat-label>
+                        <input matInput #input placeholder="{{confirmtext}}" formControlName="code" required>
+                        <mat-error *ngIf="form.value.code">Le code ne correspond pas</mat-error>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+        <mat-accordion>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Email
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{GetEmail()}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+              <p>
+                <mat-form-field appearance="fill" color="accent">
+                    <mat-label>Changement d'email</mat-label>
+                    <input matInput>
+                </mat-form-field>
+              </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        SteamID
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{GetSteamID()}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>
+                    <mat-form-field appearance="fill" color="accent">
+                        <mat-label>Changement de steamid(64)</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Role({{data.role}})
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        {{GetRole()}}
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>
+                    <mat-form-field appearance="fill" color="accent">
+                        <mat-label>Changement de permissions</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </p>
+            </mat-expansion-panel>
+            <mat-expansion-panel hideToggle>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Mot de passe
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        ************
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>
+                    <mat-form-field appearance="fill" color="accent">
+                        <mat-label>Changement de mot de passe</mat-label>
+                        <input matInput>
+                    </mat-form-field>
+                </p>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+    <div class="d-flex justify-content-center">
+        <button mat-button color="accent" (click)="dialogRef.close();">Annuler</button>
+        <button type="submit" mat-button color="secondary" [ngStyle]="{'margin-left': '8px'}" [disabled]="form.invalid" (click)="RemoveUser()">Modifier</button>
+    </div>
+<div mat-dialog-actions>

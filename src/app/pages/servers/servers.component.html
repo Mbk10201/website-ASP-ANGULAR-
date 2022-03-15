@@ -1,0 +1,65 @@
+<div class="px-4 py-5 text-center" style="height:300px;background-color: #282828;">
+    <i class="las la-server la-10x"></i>
+    <h1 class="display-5 fw-bold user-select-none">Serveurs</h1>
+    <h2>Toutes les données conçernant nos serveurs vous sont affichées ci-dessous.</h2>
+    <mat-progress-bar mode="buffer" [color]="color"></mat-progress-bar>
+</div>
+  
+<div class="container mb-2 mt-2">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+    <div *ngIf="this.server.data.length != 0; then ShowServers else NoServersAvailable"></div>
+    <ng-template #ShowServers>
+      <div *ngFor="let key of objectKeys(this.server.data); let i = index;">
+        <div class="col-sm-15">
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar style="background-image: url('assets/images/games/csgo.png');background-size: cover;"></div>
+              <mat-card-title>{{this.server.data[key].hostname}}</mat-card-title>
+              <mat-card-subtitle>{{this.server.data[key].game}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="https://image.gametracker.com/images/maps/160x120/csgo/{{this.server.data[key].map}}.jpg"/>
+            <mat-card-content>
+              <mat-tab-group>
+                <mat-tab label="Informations"> 
+                  <mat-list role="list">
+                    <mat-list-item role="listitem">Joueurs: {{this.server.data[key].players}}/{{this.server.data[key].maxplayers}}</mat-list-item>
+                    <mat-list-item role="listitem">Map: {{this.server.data[key].map}}</mat-list-item>
+                    <mat-list-item role="listitem">IP: {{this.server.data[key].ip}}:{{this.server.data[key].port}}</mat-list-item>
+                    <mat-list-item role="listitem">Distribution: {{this.server.data[key].environment}}</mat-list-item>
+                  </mat-list>
+                </mat-tab>
+                <mat-tab label="Joueurs"> 
+                  <table mat-table [dataSource]="servers[i].playerList" class="mat-elevation-z8">
+
+                    <!-- Position Column -->
+                    <ng-container matColumnDef="id">
+                      <th mat-header-cell *matHeaderCellDef> #. </th>
+                      <td mat-cell *matCellDef="let player"> {{player.id}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="name">
+                      <th mat-header-cell *matHeaderCellDef> Pseudo. </th>
+                      <td mat-cell *matCellDef="let player"> {{player.name}} </td>
+                    </ng-container>
+                  
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                  </table>
+                </mat-tab>
+              </mat-tab-group>
+            </mat-card-content>
+            <mat-divider inset></mat-divider>
+            <mat-card-actions align="end">
+              <button mat-button><a [href]="sanitize('steam://connect/'+ this.server.data[key].ip+':'+this.server.data[key].port)">Se connecter</a></button>
+            </mat-card-actions>
+          </mat-card>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #NoServersAvailable>
+      <div class="d-flex justify-content-sm-center">
+        Aucun serveur disponible !
+      </div>
+    </ng-template>
+  </div>
+</div>

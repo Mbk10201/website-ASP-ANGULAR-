@@ -1,0 +1,30 @@
+<div class="container">
+    <mat-toolbar color="primary" ngxAnimatedGradient>
+        <button mat-icon-button (click)="drawer.toggle()"><mat-icon>menu</mat-icon></button>
+        <h1 class="example-app-name">Boutique</h1>
+    </mat-toolbar>
+    <mat-drawer-container class="example-container" autosize>
+        <mat-drawer #drawer opened="true" class="example-sidenav bg-dark text-white" mode="side" style="width: 200px;">
+            <mat-list>
+                <mat-list-item matRipple [matRippleColor]="'lightgreen'" routerLink="/shop" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <span class="text-white">Accueil</span>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <mat-list-item matRipple [matRippleColor]="'lightgreen'" [routerLink]="['roleplay']" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                    <span class="text-white">Roleplay</span>
+                </mat-list-item>
+            </mat-list>
+        </mat-drawer>
+        <main style="height: 800px;">
+            <div class="d-flex justify-content-center">
+                <ng-lottie width="200px" height="200px" [options]="options"></ng-lottie>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="container pt-4">
+                <section class="mb-4 mt-5">
+                    <router-outlet></router-outlet>
+                </section>
+            </div>
+        </main>
+    </mat-drawer-container>
+</div>

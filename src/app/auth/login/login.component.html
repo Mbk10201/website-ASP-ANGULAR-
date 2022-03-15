@@ -1,0 +1,47 @@
+<section class="vh-100">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-lg-12 col-xl-11">
+          <div class="card text-white" [ngStyle]="{'border-radius': '25px', 'background': 'rgb(139, 139, 139)'}">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+                <div class="card bg-dark" [ngStyle]="{'height': '100%', 'border-top-left-radius': '25px', 'border-top-right-radius': '0px', 'border-bottom-left-radius': '25px', 'border-bottom-right-radius': '0px'}">
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Connexion</p>
+                  <form class="mx-1 mx-md-4" [formGroup]="LoginForm" (ngSubmit)="login()">
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-form-field [ngStyle]="{'width': '300px'}" appearance="fill">
+                        <mat-label [ngStyle]="{'color': '#72a4f7'}">Pseudo / Email / SteamID</mat-label>
+                        <input matInput type="text" formControlName="auth" required/>
+                        <mat-error *ngIf="!LoginForm.value.auth;">
+                          Ce champ est obligatoire.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-form-field [ngStyle]="{'width': '300px'}" appearance="fill">
+                        <mat-label [ngStyle]="{'color': '#72a4f7'}">Mot de passe</mat-label>
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required/>
+                        <mat-error *ngIf="!LoginForm.value.password;">
+                          Ce champ est obligatoire.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="d-flex flex-row justify-content-center mb-4">
+                      <mat-checkbox value="stayConnected" (click)="CheckBoxStatus()">Rester connecter!</mat-checkbox>
+                    </div>
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <button type="submit" mat-button class="btn btn-success btn-lg text-white" [disabled]="!LoginForm.valid">Connexion</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+                <img src="../assets/images/csgo_charac.png" class="img-fluid rounded" alt="Sample image">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

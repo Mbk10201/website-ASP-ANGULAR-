@@ -1,0 +1,25 @@
+<div *ngIf="this.Loader.isLoading | async; then DisplayLoader else DisplayTopics"></div>
+<ng-template #DisplayLoader>
+    <div class="d-flex justify-content-center">
+        <mat-spinner color="accent"></mat-spinner>
+    </div>
+</ng-template>
+<ng-template #DisplayTopics>
+    <mat-list>
+        <div *ngIf="this.topics.length != 0; then ShowTopics else NoTopics"></div>
+        <ng-template #ShowTopics>
+            <mat-list-item class="topicItem user-select-none" *ngFor="let topic of topics" routerLink="/forum/topic" [queryParams]="{ id: topic.id}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                <div>
+                    <span class="topicTitle">{{topic.subject}}</span>
+                </div>
+            </mat-list-item>
+        </ng-template>
+        <ng-template #NoTopics>
+            <mat-list-item class="topicError rounded-6 user-select-none" disabled>
+                <div class="d-flex justify-content-center">
+                    Aucun topic disponible dans cette catégorie !
+                </div>
+            </mat-list-item>
+        </ng-template>
+    </mat-list>
+</ng-template>

@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+.nodeTitle {
+    margin-top: 5px;
+    letter-spacing: 2px;
+    font-size: large;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.nodeImage {
+    margin-right: 5px;
+}
+
+.nodeIcon {
+    margin-right: 5px;
+}
+
+.catIcon {
+    background-color: #FA8BFF;
+    background-image: linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%);
+    padding: 5px;
+    border-radius: 2px;
+}
+
+.catTitle {
+    letter-spacing: 2px;
+    font-size: large;
+    font-family: 'Bebas Neue', cursive;
+    margin-left: 10px;
+}
+
+.catDescription {
+    margin-left: 10px;
+    font-size: small;
+}
+
+.catLastTopic {
+    margin: 0 0 0 auto;
+}
+
+.mat-list-item{
+    background-image: linear-gradient(to right, #4b6cb7 0%, #182848  51%, #4b6cb7  100%);
+    border: 1px solid #000000;
+    border-radius: 4px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.mat-list-item:hover{
+    box-shadow: 0 5px 15px rgba(0,0,0,0.7);
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.5s;
+    background-size: 200% auto;
+}
+
+.mat-list-item:active {
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 0 10px #000000;
+}
+
+.mat-expansion-panel {
+    background-color: rgb(0 0 0 / 20%);
+}

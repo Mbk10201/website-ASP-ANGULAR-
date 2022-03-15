@@ -1,0 +1,28 @@
+<div class="row">
+    <div *ngIf="this.ProductList.length != 0; then ShowHomeProducts else NoHomeProductAvailable"></div>
+    <ng-template #ShowHomeProducts>
+      <div class="col-xl-3 col-sm-6 col-12 mb-4" *ngFor="let key of objectKeys(this.ProductList)">
+        <mat-card class="example-card">
+            <mat-card-header>
+              <mat-card-title>{{this.ProductList[key].name}}</mat-card-title>
+              <mat-card-subtitle><tui-money [value]="this.ProductList[key].price" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="../../../../assets/images/shop/{{this.ProductList[key].imagefile}}" alt="{{this.ProductList[key].name}}">
+            <!--<mat-card-content>
+              <p>{{this.ProductList[key].description}}</p>
+            </mat-card-content>-->
+            <mat-divider inset></mat-divider>
+            <mat-card-actions align="end">
+              <button mat-raised-button color="primary" (click)="OpenInformation(this.ProductList[key].name, this.ProductList[key].description)"><mat-icon>info</mat-icon>Information</button>
+              <button mat-raised-button color="accent" (click)="AddToCart(this.auth.GetUserData('id'), this.ProductList[key].id, 25, this.ProductList[key].name)"><mat-icon>add_shopping_cart</mat-icon>Panier</button>
+            </mat-card-actions>
+            <mat-card-footer>
+                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+            </mat-card-footer>
+        </mat-card>
+      </div>
+    </ng-template>
+    <ng-template #NoHomeProductAvailable>
+      Aucun produit disponible
+    </ng-template>
+</div>

@@ -1,0 +1,152 @@
+<!--Main layout-->
+<main>
+    <div class="container pt-4">
+        <!--<div class="card text-center text-white" ngxAnimatedGradient style="height: 50px">
+            <div class="mt-2">
+                <h1><mat-icon>extension</mat-icon> Dashboard</h1>
+            </div>
+        </div>-->
+        <div class="d-flex justify-content-center">
+            <ng-lottie width="512px" height="128px" [options]="options"></ng-lottie>
+        </div>
+        <section class="mb-4 mt-5">
+            <div class="card bg-dark">
+                <div class="card-header py-3">
+                    <h2 class="mb-0 text-center">Utilisateurs</h2>
+                </div>
+                <div *ngIf="this.Loader.isLoading | async; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                    <div class="d-flex justify-content-center">
+                        <mat-spinner color="accent"></mat-spinner>
+                    </div>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-dark mb-2" (click)="this.user.GetAllUsers()"><mat-spinner class="text-center" [diameter]="15"></mat-spinner></button>
+                        <div class="table-responsive">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">SteamID</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let key of objectKeys(this.user.GlobalUsers); let i = index;">
+                                    <tr>
+                                        <th scope="row">{{this.user.GlobalUsers[key].id}}</th>
+                                        <td>{{this.user.GlobalUsers[key].username}}</td>
+                                        <td>{{this.user.GlobalUsers[key].email}}</td>
+                                        <td>{{this.user.GlobalUsers[key].steamid}}</td>
+                                        <td>{{this.user.GlobalUsers[key].joindate}}</td>
+                                        <td>
+                                            <div *ngIf="!this.user.GlobalUsers[key].banned; then DisplayBan else DisplayUnban"></div>
+                                            <ng-template #DisplayBan>
+                                                <button class="btn btn-danger text-dark"
+                                                    matTooltip="Bannir {{this.user.GlobalUsers[key].username}}?" 
+                                                    (click)="BanUser(this.user.GlobalUsers[key].id, this.user.GlobalUsers[key].username, this.user.GlobalUsers[key].banned, key)"
+                                                ><mat-icon>report</mat-icon></button>
+                                            </ng-template>
+                                            <ng-template #DisplayUnban>
+                                                <button class="btn btn-success text-dark" 
+                                                    matTooltip="Débannir {{this.user.GlobalUsers[key].username}}?" 
+                                                    (click)="BanUser(this.user.GlobalUsers[key].id, this.user.GlobalUsers[key].username, this.user.GlobalUsers[key].banned, key)"
+                                                ><mat-icon>report</mat-icon></button>
+                                            </ng-template>
+                                            <button class="btn btn-warning text-dark" 
+                                                [ngStyle]="{'margin-left': '8px'}" 
+                                                matTooltip="Modifier {{this.user.GlobalUsers[key].username}}?" 
+                                                (click)="EditUser(this.user.GlobalUsers[key].id, 
+                                                                    this.user.GlobalUsers[key].username, 
+                                                                    this.user.GlobalUsers[key].email, 
+                                                                    this.user.GlobalUsers[key].role,
+                                                                    this.user.GlobalUsers[key].steamid)"
+                                            ><mat-icon>edit</mat-icon></button>
+                                            <button class="btn btn-primary text-dark" 
+                                                [ngStyle]="{'margin-left': '8px'}" 
+                                                matTooltip="Supprimer {{this.user.GlobalUsers[key].username}}?" 
+                                                (click)="RemoveUser(this.user.GlobalUsers[key].id, this.user.GlobalUsers[key].username)"
+                                            ><mat-icon>remove</mat-icon></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </section>
+        <!--Section: Sales Performance KPIs-->
+
+        <!--Section: Minimal statistics cards-->
+        <section>
+            <div class="row">
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between px-md-1">
+                                <div class="align-self-center">
+                                    <i class="fas fa-pencil-alt text-info fa-3x"></i>
+                                </div>
+                                <div class="text-end">
+                                    <h3 [class]="this.user.GlobalUsers.length ? 'text-success' : 'text-danger'">{{this.user.GlobalUsers.length}}</h3>
+                                    <p class="mb-0 text-white">Nombre d'utilisateurs</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="far fa-comment-alt text-warning fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <h3 class="text-success">{{this.news.length}}</h3>
+                                <p class="mb-0 text-white">Nouvelles</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between px-md-1">
+                            <div class="align-self-center">
+                                <i class="fas fa-chart-line text-success fa-3x"></i>
+                            </div>
+                            <div class="text-end">
+                                <h3 class="text-success">{{this.patchnotes.length}}</h3>
+                                <p class="mb-0 text-white">Patchnotes</p>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between px-md-1">
+                                <div class="align-self-center">
+                                    <i class="fas fa-map-marker-alt text-danger fa-3x"></i>
+                                </div>
+                                <div class="text-end">
+                                    <h3 class="text-success">{{user.visitors}}</h3>
+                                    <p class="mb-0 text-white">Visites totales</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <!--Section: Minimal statistics cards-->
+    </div>
+</main>
+<!--Main layout--> 

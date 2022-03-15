@@ -1,0 +1,101 @@
+<!--Main layout-->
+<main>
+    <div class="container pt-4">
+        <!--<div class="card text-center text-white" ngxAnimatedGradient style="height: 50px">
+            <div class="mt-2">
+                <h1><mat-icon>fiber_new</mat-icon> Nouvelles</h1>
+            </div>
+        </div>-->
+        <div class="d-flex justify-content-center">
+            <ng-lottie width="512px" height="128px" [options]="options"></ng-lottie>
+        </div>
+        <section class="mb-4 mt-5">
+            <div class="card bg-dark">
+                <div class="card-header text-center py-3">
+                    <h5 class="mb-0 text-center text-white fs-3">
+                        Liste
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div *ngIf="this.news.length == 0; then NoNewsAvailable"></div>
+                    <ng-template #NoNewsAvailable>
+                        <div class="d-flex justify-content-sm-center text-danger">
+                            Aucune nouvelle disponible !
+                        </div>
+                    </ng-template>
+                    <div class="mt-2" *ngFor="let new of Obs | async">
+                        <mat-expansion-panel hideToggle class="bg-dark border">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title class="text-white">
+                                    {{ new.title }}
+                                </mat-panel-title>
+                                <mat-panel-description class="text-primary">
+                                    {{ new.date }}
+                                </mat-panel-description>
+                                <button class="btn btn-warning text-dark" 
+                                    [ngStyle]="{'margin-left': '8px'}" 
+                                    matTooltip="Modifier {{new.title}}?" 
+                                    (click)="UpdateNew(new.id, new.title, new.content)">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button class="btn btn-danger text-dark" matTooltip="Supprimer {{new.title}}?" 
+                                    [ngStyle]="{'margin-left': '8px'}" 
+                                    (click)="DeleteNew(new.title, new.id)">
+                                    <i class="las la-trash fs-3"></i>
+                                </button>
+                            </mat-expansion-panel-header>
+                            <hr style="background-image: url('https://i.gifer.com/origin/8c/8cb60bc2f43a6f283e8437a30b19b50b.gif');">
+                            <p class="text-primary">{{ new.content }}</p>
+                        </mat-expansion-panel>
+                    </div>
+                    <mat-paginator class="bg-dark text-primary" color="accent" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                </div>
+            </div>
+        </section>
+        <!--Section: Sales Performance KPIs-->
+        <section>
+            <div class="card bg-dark">
+                <div class="card-header text-center">
+                    <h5 class="mb-0 text-center text-white">
+                        <strong>Ajouter</strong>
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="AddForm" (ngSubmit)="InsertNew()">
+                        <div class="form-group">
+                            <mat-form-field style="width: 100%;" appearance="outline" color="accent">
+                                <mat-label>Titre</mat-label>
+                                <input matInput #title maxlength="128" formControlName="title" required>
+                                <mat-hint align="end">{{title.value?.length || 0}}/128</mat-hint>
+                                <mat-error *ngIf="!AddForm.value.title;">
+                                    Ce champ est obligatoire.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="form-group">
+                            <mat-form-field style="width: 100%;" appearance="outline" color="accent">
+                                <mat-label>Contenu</mat-label>
+                                <textarea matInput #content maxlength="2048" formControlName="content" required></textarea>
+                                <mat-hint align="end">{{content.value?.length || 0}}/2048</mat-hint>
+                                <mat-error *ngIf="!AddForm.value.content;">
+                                    Ce champ est obligatoire.
+                                </mat-error>
+                            </mat-form-field>
+                        </div>                                    
+                        <button 
+                            matRipple
+                            [matRippleColor]="'lightblue'" [matRippleRadius]="50"
+                            mat-raised-button
+                            matTooltip="Prêt pour ajouter la nouvelle à l'accueil?" 
+                            type="submit" 
+                            class="btn-success btn-block mt-4" 
+                            [disabled]="!AddForm.valid">
+                            Ajouter
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+<!--Main layout--> 

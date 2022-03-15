@@ -1,0 +1,50 @@
+<h1 mat-dialog-title class="text-center">
+    Modification de <span class="badge bg-danger">{{data.title}}</span> ?
+</h1>
+<p>Veuillez confirmer les nouveaux paramètres ci-dessous.</p>
+<mat-divider></mat-divider>
+
+<div mat-dialog-content>
+    <div class="row mt-2">
+        <div class="d-flex justify-content-center">
+            <form [formGroup]="form">
+                <mat-form-field appearance="fill" color="accent">
+                    <mat-label>Titre</mat-label>
+                    <input matInput formControlName="title" required>
+                    <mat-error *ngIf="!form.value.title;">
+                        Ce champ est obligatoire.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" color="accent">
+                    <mat-label>Autheur</mat-label>
+                    <input matInput formControlName="owner" required>
+                    <mat-error *ngIf="!form.value.owner;">
+                        Ce champ est obligatoire.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="fill" color="accent">
+                    <mat-label>Status</mat-label>
+                    <input matInput formControlName="status" required>
+                    <mat-error *ngIf="!form.value.status;">
+                        Ce champ est obligatoire.
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field style="width: 100%;" appearance="outline" color="accent">
+                    <mat-label>Description</mat-label>
+                    <textarea matInput #content maxlength="2048" formControlName="content" required></textarea>
+                    <mat-hint align="end">{{content.value?.length || 0}}/2048</mat-hint>
+                    <mat-error *ngIf="!form.value.content;">
+                        Ce champ est obligatoire.
+                    </mat-error>
+                </mat-form-field>
+            </form>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+    <div class="d-flex justify-content-center">
+        <button mat-button color="warn" (click)="dialogRef.close();">Annuler</button>
+        <button type="submit" mat-button color="accent" [ngStyle]="{'margin-left': '8px'}" [disabled]="form.invalid" (click)="Update()">Continuer</button>
+    </div>
+<div mat-dialog-actions>

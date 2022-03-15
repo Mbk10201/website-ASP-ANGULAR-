@@ -1,0 +1,7 @@
+.example-spacer {
+    flex: 1 1 auto;
+}
+.title-center {
+    flex: 100 1 auto;
+    text-align: center;
+}

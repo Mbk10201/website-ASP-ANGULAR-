@@ -1,0 +1,201 @@
+<div class="px-4 py-5 text-center" style="height:400px;background-color: #282828;">
+    <img src="../../../assets/images/sourcemod.png"/>
+    <h1 class="display-5 fw-bold user-select-none">Plugins</h1>
+    <h2>
+        Afin de ne pas privatiser les modes, plugins et pack, nous voulons en faire profiter à tout le monde, il vous suffit juste de vous <a class="text-primary" routerLink="/register">créer un compte</a> ou bien de vous <a class="text-primary" routerLink="/login">connecter</a> si c'est déjà fait
+        et simplement cliquer sur Telecharger.
+    </h2>
+    <mat-progress-bar mode="buffer" [color]="'warn'"></mat-progress-bar>
+</div>
+<div class="bg-dark">
+    <div class="container pt-4">
+        <div class="row">
+            <div class="col-md-2">
+                <mat-card class="text-center" style="width: 200px">
+                    <mat-card-title>Filtres</mat-card-title>
+                    <mat-divider></mat-divider>
+                    <mat-form-field appearance="fill" color="accent" class="mt-2" style="width: 150px">
+                        <mat-label>Jeu</mat-label>
+                        <mat-select>
+                          <mat-option class="bg-success" *ngFor="let game of games" [value]="game.name">
+                            <img width="32" height="32" src="../../assets/images/games/{{game.image}}"/>{{game.name}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" color="accent" class="mt-2" style="width: 150px">
+                        <mat-label>Catégorie</mat-label>
+                        <mat-select>
+                          <mat-option class="bg-warning" *ngFor="let cat of category" [value]="cat">
+                            {{cat}}
+                          </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-card>
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-4">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                                <mat-card-title>Jailbreak</mat-card-title>
+                                <mat-card-subtitle><tui-money [value]="0" currency="€" [colored]="true"></tui-money></mat-card-subtitle>
+                            </mat-card-header>
+                            <img mat-card-image src="../../../../assets/images/shop/tokens.png" alt="Jailbreak">
+                            <!--<mat-card-content>
+                                <p>{{this.ProductList[key].description}}</p>
+                            </mat-card-content>-->
+                            <mat-divider inset></mat-divider>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary"><mat-icon>info</mat-icon></button>
+                                <button mat-raised-button color="accent"><mat-icon>cloud_download</mat-icon></button>
+                            </mat-card-actions>
+                            <mat-card-footer>
+                                <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+                            </mat-card-footer>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

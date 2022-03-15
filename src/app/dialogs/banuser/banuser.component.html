@@ -1,0 +1,63 @@
+<h1 mat-dialog-title class="text-center">
+    <div *ngIf="!data.banned; then DisplayBan else DisplayUnban"></div>
+    <ng-template #DisplayBan>Bannir </ng-template>
+    <ng-template #DisplayUnban>Débannir </ng-template>
+    <span class="badge bg-danger">{{data.name}}</span> ?
+</h1>
+<p>Veuillez confirmer ci-dessous afin de procéder au bannissement de l'utilisateur.</p>
+<mat-divider></mat-divider>
+
+<div mat-dialog-content>
+    <div class="row mt-2">
+        <div class="col-sm-4">
+            <div class="d-flex justify-content-center align-item-center text-danger fs-2">
+                <span class="badge bg-primary">{{confirmtext}}</span>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="d-flex justify-content-center">
+                <form [formGroup]="form">
+                    <mat-form-field appearance="fill" color="accent">
+                        <mat-label>Confirmer le code</mat-label>
+                        <input matInput #input placeholder="{{confirmtext}}" formControlName="code" required>
+                        <mat-error *ngIf="form.value.code">Le code ne correspond pas</mat-error>
+                    </mat-form-field>
+                    <div *ngIf="!data.banned; then DisplayFields"></div>
+                    <ng-template #DisplayFields>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Raison</mat-label>
+                            <mat-select [formControl]="raisonControl" required>
+                            <mat-option *ngFor="let raison of raisons" [value]="raison.value">
+                                {{raison.viewValue}}
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="raisonControl.hasError('required')">Ce champ est obligatoire.</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Temps</mat-label>
+                            <mat-select [formControl]="timeControl" required>
+                            <mat-option *ngFor="let time of times" [value]="time.value">
+                                {{time.viewValue}}
+                            </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="timeControl.hasError('required')">Ce champ est obligatoire.</mat-error>
+                        </mat-form-field>
+                    </ng-template>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+    <div class="d-flex justify-content-center">
+        <button mat-button color="accent" (click)="dialogRef.close();">Annuler</button>
+        <div *ngIf="!data.banned; then ButtonBan else ButtonUnban"></div>
+        <ng-template #ButtonBan>
+            <button type="submit" mat-button color="warn" [ngStyle]="{'margin-left': '8px'}" [disabled]="form.invalid || raisonControl.invalid || timeControl.invalid" (click)="BanUser(data.id, authService.GetUserData('id'), raisonControl.value, data.name)">Bannir</button>
+        </ng-template> 
+        <ng-template #ButtonUnban>
+            <button type="submit" mat-button color="secondary" [ngStyle]="{'margin-left': '8px'}" [disabled]="form.invalid" (click)="UnbanUser(data.id, data.name)">Débannir</button>
+        </ng-template>   
+    </div>
+<div mat-dialog-actions>

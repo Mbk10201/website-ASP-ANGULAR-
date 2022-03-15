@@ -1,0 +1,58 @@
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+        <mat-card>
+            <mat-card-header>
+                <div mat-card-avatar><!--<box-icon name='group' size="lg" color="#9ab923"></box-icon>--></div>
+                <mat-card-title>Utilisateurs</mat-card-title>
+                <mat-card-subtitle>Liste officielle de la liste des joueurs du serveur</mat-card-subtitle>
+            </mat-card-header>
+            <div *ngIf="this.Loader.isLoading | async; then thenBlock else elseBlock"></div>
+            <ng-template #thenBlock>
+                <div class="d-flex justify-content-center">
+                    <mat-spinner color="accent"></mat-spinner>
+                </div>
+            </ng-template>
+            <ng-template #elseBlock>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pseudo</th>
+                            <th scope="col">SteamID</th>
+                            <th scope="col">Argent</th>
+                            <th scope="col">Banque</th>
+                            <th scope="col">Métier</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let key of objectKeys(users); let i = index;">
+                        <tr>
+                            <th scope="row">{{users[key].playerid}}</th>
+                            <td>
+                                <button mat-icon-button [matMenuTriggerFor]="menu">
+                                    {{users[key].name}}
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item routerLink="/csgo/roleplay/profil" [queryParams]="{ id: users[key].steamid64}">Voir son profil</button>
+                                    <mat-divider></mat-divider>
+                                    <button mat-menu-item>Envoyer un message</button>
+                                    <mat-divider></mat-divider>
+                                </mat-menu>
+                            </td>
+                            <td>{{users[key].steamid32}}</td>
+                            <td>{{users[key].money}}</td>
+                            <td>{{users[key].bank}}</td>
+                            <td>{{GetJob(users[key].jobid, users[key].gradeid)}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div id="Bar" class="d-flex justify-content-center">
+            <canvas id="ChartBar"></canvas>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>3</mat-grid-tile>
+    <mat-grid-tile>4</mat-grid-tile>
+</mat-grid-list>

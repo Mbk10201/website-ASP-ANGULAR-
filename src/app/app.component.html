@@ -1,0 +1,14 @@
+<tui-root>
+<app-navbar></app-navbar>
+<div *ngIf="Loader.isLoading | async" class="loader-container">
+    <mat-progress-bar mode="indeterminate" [color]="'warn'"></mat-progress-bar>
+</div>
+<!-- <ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#fffa00" type = "timer" [fullScreen] = "true"><p style="color: white" > Chargement... </p></ngx-spinner> -->
+<ngx-spinner 
+    template="<img src='../assets/images/logo.png' class='user-select-none animate__heartBeat bx-spin' width='256' height='256'/>"
+    bdColor="rgba(0, 0, 0, 0.6)">
+</ngx-spinner>
+<ng-particles id="particles-js" [url]="particlesUrl"></ng-particles>
+<router-outlet></router-outlet> 
+<app-footer></app-footer>
+</tui-root>

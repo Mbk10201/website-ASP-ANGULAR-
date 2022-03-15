@@ -1,0 +1,47 @@
+<footer class="footer text-center">
+  <div class="container">
+    <mat-grid-list cols="4" rowHeight="150px">
+      <mat-grid-tile colspan="1" rowspan="1">
+        <div class="col-md-6 mb-md-0">
+          <h5 class="text-uppercase text-danger">Interne</h5>
+          <mat-divider></mat-divider>     
+          <ul class="list-unstyled mt-2">
+            <li>
+              <a routerLink="" class="text-white"><i class="las la-home"></i> Accueil</a>
+            </li>
+            <li>
+              <a routerLink="server" class="text-white"><i class="las la-server"></i> Serveurs</a>
+            </li>
+            <li>
+              <a routerLink="stats" class="text-white"><i class="las la-level-up-alt"></i> Statistiques</a>
+            </li>
+          </ul>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="2" rowspan="1">
+        <ng-lottie width="100px" height="100px" [options]="mastercard"></ng-lottie>
+        <ng-lottie width="100px" height="100px" [options]="paypal" [ngStyle]="{'margin-left': '50px'}"></ng-lottie>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="1" rowspan="1">
+        <div class="col-md-6 mb-md-0">
+          <h5 class="text-uppercase text-primary">Externe</h5>
+          <mat-divider></mat-divider>
+          <ul class="list-unstyled mt-2">
+            <li>
+              <a href="https://bans.enemy-down.fr/" target="_blank" class="text-white"><i class="las la-ban"></i> SourceBans</a>
+            </li>
+            <li>
+              <a href="https://forum.enemy-down.fr/" target="_blank" class="text-white"><i class="las la-comment-dots"></i> Forum</a>
+            </li>
+          </ul>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+    © 2022 Copyright:
+    <a class="text-white" routerLink="">{{ title }}</a>
+  </div>
+</footer>
+<!-- Footer -->

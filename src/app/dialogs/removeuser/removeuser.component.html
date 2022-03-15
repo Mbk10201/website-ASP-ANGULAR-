@@ -1,0 +1,31 @@
+<h1 mat-dialog-title class="text-center">Supprimer <span class="badge bg-primary">{{data.name}}</span> ?</h1>
+<p>Veuillez confirmer ci-dessous afin de procéder à la suppression de l'utilisateur.</p>
+<mat-divider></mat-divider>
+
+<div mat-dialog-content style="height: 100px">
+    <div class="row mt-2">
+        <div class="col-sm-4">
+            <div class="d-flex justify-content-center text-danger fs-2">
+                <span class="badge bg-primary">{{confirmtext}}</span>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="d-flex justify-content-center">
+                <form [formGroup]="form">
+                    <mat-form-field appearance="fill" color="accent">
+                        <mat-label>Confirmer le code</mat-label>
+                        <input matInput #input placeholder="{{confirmtext}}" formControlName="code" required>
+                        <mat-error *ngIf="form.value.code">Le code ne correspond pas</mat-error>
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+    <div class="d-flex justify-content-center">
+        <button mat-button color="accent" (click)="dialogRef.close();">Annuler</button>
+        <button type="submit" mat-button color="warn" [ngStyle]="{'margin-left': '8px'}" [disabled]="form.invalid" (click)="RemoveUser()">Supprimer</button>
+    </div>
+<div mat-dialog-actions>

@@ -1,0 +1,182 @@
+<ng-template #DisplaySpinner>
+    <div class="d-flex justify-content-center">
+        <mat-spinner color="accent" diameter="50"></mat-spinner>
+    </div>
+</ng-template>
+
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-sm-4">
+            <mat-card class="top-cards rounded-8">
+                <div class="d-flex justify-content-center">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <span class="fs-1">JOB</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                </div>
+                <mat-card-content class="text-center">
+                    <hr class="rgb-divider">
+                    <div *ngIf="this.Loader.isLoading | async; then DisplaySpinner else DisplayJob"></div>
+                    <ng-template #DisplayJob>
+                        <h1>{{GetInfo("username")}}</h1>
+                    </ng-template>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-sm-4">
+            <mat-card class="top-cards rounded-8">
+                <div class="d-flex justify-content-center">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <span class="fs-1">Organisation</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                </div>
+                <mat-card-content class="text-center">
+                    <hr class="rgb-divider">
+                    <div *ngIf="this.Loader.isLoading | async; then DisplaySpinner else DisplayOrganisation"></div>
+                    <ng-template #DisplayOrganisation>
+                        <h1>Cosa nostra</h1>
+                    </ng-template>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-sm-4">
+            <mat-card class="top-cards rounded-8">
+                <div class="d-flex justify-content-center">
+                    <mat-card-header>
+                        <mat-card-title>
+                            <span class="fs-1">Temps de jeux</span>
+                        </mat-card-title>
+                    </mat-card-header>
+                </div>
+                <mat-card-content class="text-center">
+                    <hr class="rgb-divider">
+                    <div *ngIf="this.Loader.isLoading | async; then DisplaySpinner else DisplayPlayTime"></div>
+                    <ng-template #DisplayPlayTime>
+                        <h1>{{GetInfo("playtime")}}</h1>
+                    </ng-template>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row mt-3 mb-3">
+        <div class="col-lg-6">
+            <div class="d-flex justify-content-center">
+                <mat-card class="user-card">
+                    <mat-card-title>Vos données</mat-card-title>
+                    <mat-card-subtitle>IN-GAME</mat-card-subtitle>
+                    <div *ngIf="this.Loader.isLoading | async; then DisplaySpinner else DisplayCardData"></div>
+                    <ng-template #DisplayCardData>
+                        <mat-tab-group dynamicHeight color="accent">
+                            <mat-tab label="Général"> 
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-list role="list">
+                                            <mat-list-item role="listitem">
+                                                Nom <i class='bx bx-right-arrow-alt'></i> <span class="text-success">{{GetInfo("name")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Pays <i class='bx bx-right-arrow-alt'></i> <span class="text-success">{{GetInfo("country")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Nationalité <i class='bx bx-right-arrow-alt'></i> <span class="text-success">{{GetInfo("nationality")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Sexe <i class='bx bx-right-arrow-alt'></i> <span class="text-success">{{GetInfo("sexe")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                TAG <i class='bx bx-right-arrow-alt'></i> <span class="text-info">{{GetInfo('tag')}}</span>
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </div>
+                                    <div class="col">
+                                        <img src="../../../../../assets/images/roleplay/skins/ctm_fbi_variantc.png" width="256" class="user-select-none" loading="lazy"/>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Succès">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-list role="list">
+                                            <mat-list-item role="listitem">
+                                                Nom: {{GetInfo("name")}}
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Pays: {{GetInfo("country")}}
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Nationalité: {{GetInfo("nationality")}}
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Sexe: {{GetInfo("sexe")}}
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                T.A.G: {{GetInfo("tag")}}
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </div>
+                                    <div class="col">
+                                        <img src="https://rpweb.riplay.fr/images/roleplay/skin/tmbalkan.bmp.png" width="256" class="user-select-none"/>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Garage">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-list role="list">
+                                            <mat-list-item role="listitem">
+                                                Nom: <span class="text-success">{{GetInfo("name")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Pays: <span class="text-success">{{GetInfo("country")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Nationalité: <span class="text-success">{{GetInfo("nationality")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                Sexe: <span class="text-success">{{GetInfo("sexe")}}</span>
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem">
+                                                T.A.G: <span class="text-info">{{GetInfo('tag')}}</span>
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </div>
+                                    <div class="col">
+                                        <img src="https://rpweb.riplay.fr/images/roleplay/skin/tmbalkan.bmp.png" width="256"/>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </ng-template>
+                    <mat-card-footer>
+                        <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+                    </mat-card-footer>
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="d-flex justify-content-center">
+                <mat-card class="user-card">
+                    <mat-card-title>Vos données</mat-card-title>
+                    <mat-card-subtitle>IN-GAME</mat-card-subtitle>
+                    <div class="row">
+                        <div class="col">
+                            <mat-list role="list">
+                                <mat-list-item role="listitem">Item 1</mat-list-item>
+                                <mat-list-item role="listitem">Item 2</mat-list-item>
+                                <mat-list-item role="listitem">Item 3</mat-list-item>
+                            </mat-list>
+                        </div>
+                        <div class="col">
+                            <img src="https://rpweb.riplay.fr/images/roleplay/skin/tmbalkan.bmp.png" width="256"/>
+                        </div>
+                        <mat-card-footer>
+                            <mat-progress-bar mode="indeterminate" color="warn"></mat-progress-bar>
+                        </mat-card-footer>
+                    </div>
+            </mat-card>
+        </div>
+    </div>
+</div>

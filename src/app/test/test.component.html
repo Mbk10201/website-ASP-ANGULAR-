@@ -1,0 +1,58 @@
+<button class="btn btn-danger" (click)="LoadPosts()"> LOAD POSTS</button>
+
+<mat-card style="height: 100%;">
+    <div class="container-fluid topic-body">
+        <p class="text-center topic-subject mt-5 user-select-none">TEST PAGINATION</p>
+        <button mat-button color="warn"><i class='bx bx-trash bx-md'></i></button>
+        <hr class="rgb-divider mt-5">
+        <div class="row topic mt-5">
+            <div class="col-sm-2">
+                <img 
+                    loading="lazy" 
+                    class="rounded-8 text-center user-select-none" 
+                    width="156"
+                    height="156"
+                    src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/04/049dcd97a490fb0e3edf553e83265a55f05ad767_full.jpg"
+                />
+                <h1 class="text-center user-select-none">Admin</h1>
+                <div class="text-warning text-center">
+                    <p>09-03-22</p>
+                </div>
+            </div>
+            <div class="col-sm-10 rounded-8 border border-primary border-5" style="background-color: rgba(19, 19, 19, 0.5);">
+                <div class="container user-select-none">
+                    <div class="topic-content mt-3">
+                        <p>Test</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="obs| async as posts">
+            <div>
+                <div class="row topic mt-5" *ngFor="let post of posts">
+                    <div class="col-sm-2">
+                        <img 
+                            loading="lazy" 
+                            class="rounded-8 text-center user-select-none" 
+                            width="156"
+                            height="156"
+                            src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/04/049dcd97a490fb0e3edf553e83265a55f05ad767_full.jpg"
+                        />
+                        <h1 class="text-center user-select-none">{{post.by}}</h1>
+                        <div class="text-warning text-center">
+                            <p>{{post.date}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-10 bg-dark rounded-8">
+                        <div class="container user-select-none">
+                            <div class="topic-content mt-3">
+                                <p>{{post.content}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <mat-paginator [showFirstLastButtons]="true" [pageSizeOptions]="[2, 5, 10, 20, 50, 100]"></mat-paginator>
+        </div>
+    </div>
+</mat-card>

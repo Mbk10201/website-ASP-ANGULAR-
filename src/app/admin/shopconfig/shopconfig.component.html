@@ -1,0 +1,78 @@
+<!--Main layout-->
+<main>
+    <div class="container pt-4">
+        <!--<div class="card text-center text-white" ngxAnimatedGradient style="height: 50px">
+            <div class="mt-2">
+                <h1><mat-icon>extension</mat-icon> Dashboard</h1>
+            </div>
+        </div>-->
+        <div class="d-flex justify-content-center">
+            <ng-lottie width="512px" height="128px" [options]="options"></ng-lottie>
+        </div>
+        <section class="mb-4 mt-5">
+            <div class="card bg-dark">
+                <div class="card-header py-3">
+                    <h2 class="mb-0 text-center">Liste des produits</h2>
+                </div>
+                <div *ngIf="this.Loader.isLoading | async; then thenBlock else elseBlock"></div>
+                <ng-template #thenBlock>
+                    <div class="d-flex justify-content-center">
+                        <mat-spinner color="accent"></mat-spinner>
+                    </div>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <div class="card-body">
+                        <button type="button" class="btn btn-dark mb-2" (click)="this.FetchProducts()"><mat-spinner class="text-center" [diameter]="15"></mat-spinner></button>
+                        <div class="table-responsive">
+                            <table class="table table-hover text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">Nom</th>
+                                        <th scope="col">Prix</th>
+                                        <th scope="col">Catégorie</th>
+                                        <th scope="col">Image</th>
+                                        <th scope="col">Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let key of objectKeys(this.productlist); let i = index;">
+                                    <tr>
+                                        <th scope="row">{{this.productlist[key].id}}</th>
+                                        <td>
+                                            <button mat-button (click)="EditName(this.productlist[key].id, this.productlist[key].name)">
+                                                {{this.productlist[key].name}}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button mat-button (click)="EditPrice(this.productlist[key].id, this.productlist[key].name, this.productlist[key].price)">
+                                                <tui-money [value]="this.productlist[key].price" currency="€" [colored]="true"></tui-money>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button mat-button (click)="EditCategory(this.productlist[key].id, this.productlist[key].name, this.productlist[key].category)">
+                                                {{this.productlist[key].category}}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button mat-button (click)="EditImage(this.productlist[key].id, this.productlist[key].name, this.productlist[key].imagefile)">
+                                                {{this.productlist[key].imagefile}}
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button mat-button (click)="EditDescription(this.productlist[key].id, this.productlist[key].name, this.productlist[key].description)">
+                                                {{this.productlist[key].description}}
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </section>
+        <!--Section: Sales Performance KPIs-->
+    <!--Section: Minimal statistics cards-->
+    </div>
+</main>
+<!--Main layout--> 

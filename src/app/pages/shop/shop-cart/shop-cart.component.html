@@ -1,0 +1,44 @@
+<h1 mat-dialog-title class="text-center"><i class="las la-shopping-cart la-3x"></i></h1>
+<hr>
+<div mat-dialog-content style="width: 800px;" class="user-select-none">
+    <div *ngIf="this.ProductList.length != 0; then DisplayProducts else CartEmpty"></div>
+    <ng-template #DisplayProducts>
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Produit</th>
+                <th scope="col">Quantité</th>
+                <th scope="col">Prix (Unité)</th>
+                <!--<th scope="col">Image</th>-->
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let key of objectKeys(this.ProductList)">
+                <tr>
+                    <th scope="row">{{key}}</th>
+                    <td>{{this.ProductList[key].name}}</td>
+                    <td>{{this.ProductList[key].quantity}}</td>
+                    <td><tui-money [value]="this.ProductList[key].price" currency="€" [colored]="true"></tui-money></td>
+                    <!--<td><img height="128" width="128" src="../../../../assets/images/shop/{{this.ProductList[key].imagefile}}"></td>-->
+                    <td>
+                        <button mat-raised-button color="warn" matTooltip="Supprimer du panier ?" (click)="RemoveProduct(this.auth.GetUserData('id'), ProductList[key].id)"><mat-icon>remove_circle</mat-icon></button>
+                        <button mat-raised-button color="primary" matTooltip="Modifier la quantité ?" (click)="RemoveProduct(this.auth.GetUserData('id'), ProductList[key].id)" [ngStyle]="{'margin-left': '8px'}"><mat-icon>edit</mat-icon></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </ng-template>
+    <ng-template #CartEmpty>
+        <div class="d-flex justify-content-sm-center">
+            Votre panier est vide !
+        </div>
+    </ng-template>
+</div>
+<div *ngIf="this.ProductList.length != 0;">
+    <h1>Total: <tui-money [value]="this.pricetotal" currency="€" [colored]="true"></tui-money></h1>
+    <button mat-raised-button color="warn" matTooltip="Vider votre panier ?" (click)="EmptyCart(this.auth.GetUserData('id'))"><mat-icon>remove_shopping_cart</mat-icon>Vider</button>
+    <mat-card-actions align="end">
+        <button mat-raised-button color="accent" matTooltip="Prêt à passer commande ?" (click)="Checkout()" [ngStyle]="{'margin-left': '8px'}">Passer commande</button>
+    </mat-card-actions>
+</div>

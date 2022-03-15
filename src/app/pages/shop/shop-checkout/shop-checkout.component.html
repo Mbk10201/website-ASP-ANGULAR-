@@ -1,0 +1,53 @@
+
+<h2 mat-dialog-title>Veuillez suivre les étapes afin d'effectuer le paiement.</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-stepper linear #stepper>
+      <mat-step [stepControl]="firstFormGroup" label="Moyen de paiement" editable>
+        <form [formGroup]="firstFormGroup">
+          <div class="d-flex justify-content-center">
+            <mat-form-field appearance="fill">
+              <mat-label>Faites le choix</mat-label>
+              <mat-select formControlName="firstCtrl" [(ngModel)]="selectedValue" name="method"required>
+                <mat-option *ngFor="let method of paymentmethods" [value]="method.value">
+                  {{method.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <!--<mat-divider></mat-divider>-->
+          <div>
+            <button mat-raised-button color="warn" (click)="ShowError()" matStepperPrevious>Annuler</button>
+            <button mat-raised-button color="accent" matTooltip="Étape suivante" [ngStyle]="{'margin-left': '8px'}" matStepperNext>Suivant</button>
+          </div>
+        </form>
+        <div id="alihanlapute"></div>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Validation paiement</ng-template>
+        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+        <div>
+          <button mat-raised-button color="warn" (click)="ShowError()" matStepperPrevious>Annuler</button>
+          <button mat-raised-button color="accent" [ngStyle]="{'margin-left': '8px'}" matStepperPrevious>Retour</button>
+          <button mat-raised-button color="primary" [ngStyle]="{'margin-left': '8px'}" (click)="stepper.reset()">Recommencer</button>
+        </div>
+      </mat-step>
+  </mat-stepper>
+  <mat-divider></mat-divider>
+  <div class="row rounded-7 mb-2">
+    <div class="col-lg-4">
+      <div class="d-flex justify-content-center">
+        <ng-lottie width="150px" height="150px" [options]="mastercard"></ng-lottie>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="d-flex justify-content-center">
+        <ng-lottie width="150px" height="150px" [options]="paypal"></ng-lottie>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="d-flex justify-content-center">
+        <ng-lottie width="150px" height="150px" [options]="visa"></ng-lottie>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>

@@ -1,0 +1,16 @@
+<div style="background-color: #1e1e1e;">
+  <div class="container">
+    <div class="col-xl-3 col-sm-6 col-12 p-2" *ngFor="let key of objectKeys(list)">
+      <mat-card class="example-card">
+          <mat-card-header>
+            <mat-card-title>{{list[0].name}}</mat-card-title>
+            <mat-card-subtitle>{{list[0].role}}</mat-card-subtitle>
+          </mat-card-header>
+          <img mat-card-image src="{{list[0].imageurl}}" alt="{{list[0].name}}">
+          <mat-card-footer>
+              <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+          </mat-card-footer>
+      </mat-card>
+    </div>
+  </div>
+</div>
